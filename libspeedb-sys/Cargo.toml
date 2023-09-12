@@ -11,6 +11,14 @@ repository = "https://github.com/speedb-io/rust-speedb"
 keywords = [ "bindings", "ffi", "speedb" ]
 categories = [ "api-bindings", "database", "external-ffi-bindings" ]
 links = "speedb"
+exclude = [
+    "speedb/docs",
+    "speedb/java",
+    "speedb/fuzz",
+    "speedb/plugin/speedb/java",
+    "speedb/.github"
+]
+
 
 [features]
 default = [ "static" ]
