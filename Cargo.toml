@@ -1,15 +1,15 @@
 [package]
-name = "rocksdb"
-description = "Rust wrapper for Facebook's RocksDB embeddable database"
-version = "0.21.0"
+name = "speedb"
+description = "Rust wrapper for Speedb"
+version = "0.0.3"
 edition = "2018"
 rust-version = "1.63"
 authors = ["Tyler Neely <t@jujit.su>", "David Greenberg <dsg123456789@gmail.com>"]
-repository = "https://github.com/rust-rocksdb/rust-rocksdb"
+repository = "https://github.com/speedb-io/rust-speedb"
 license = "Apache-2.0"
 categories = [ "database" ]
 keywords = ["database", "embedded", "LSM-tree", "persistence"]
-homepage = "https://github.com/rust-rocksdb/rust-rocksdb"
+homepage = "https://github.com/speedb-io/rust-speedb"
 exclude = [
     ".gitignore",
     ".travis.yml",
@@ -18,25 +18,25 @@ exclude = [
 ]
 
 [workspace]
-members = ["librocksdb-sys"]
+members = ["libspeedb-sys"]
 
 [features]
 default = ["snappy", "lz4", "zstd", "zlib", "bzip2"]
-jemalloc = ["librocksdb-sys/jemalloc"]
-io-uring = ["librocksdb-sys/io-uring"]
+jemalloc = ["libspeedb-sys/jemalloc"]
+io-uring = ["libspeedb-sys/io-uring"]
 valgrind = []
-snappy = ["librocksdb-sys/snappy"]
-lz4 = ["librocksdb-sys/lz4"]
-zstd = ["librocksdb-sys/zstd"]
-zlib = ["librocksdb-sys/zlib"]
-bzip2 = ["librocksdb-sys/bzip2"]
-rtti = ["librocksdb-sys/rtti"]
+snappy = ["libspeedb-sys/snappy"]
+lz4 = ["libspeedb-sys/lz4"]
+zstd = ["libspeedb-sys/zstd"]
+zlib = ["libspeedb-sys/zlib"]
+bzip2 = ["libspeedb-sys/bzip2"]
+rtti = ["libspeedb-sys/rtti"]
 multi-threaded-cf = []
 serde1 = ["serde"]
 
 [dependencies]
 libc = "0.2"
-librocksdb-sys = { path = "librocksdb-sys", version = "0.11.0" }
+libspeedb-sys = { path = "libspeedb-sys", version = "0.0.3" }
 serde = { version = "1", features = [ "derive" ], optional = true }
 
 [dev-dependencies]

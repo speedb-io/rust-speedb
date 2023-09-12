@@ -1,4 +1,4 @@
-use rocksdb::{IteratorMode, DB};
+use speedb::{IteratorMode, DB};
 
 fn main() {
     let _iter = {

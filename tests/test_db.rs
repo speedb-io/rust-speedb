@@ -19,7 +19,7 @@ use std::{mem, sync::Arc, thread, time::Duration};
 
 use pretty_assertions::assert_eq;
 
-use rocksdb::{
+use speedb::{
     perf::get_memory_usage_stats, BlockBasedOptions, BottommostLevelCompaction, Cache,
     ColumnFamilyDescriptor, CompactOptions, CuckooTableOptions, DBAccess, DBCompactionStyle,
     DBWithThreadMode, Env, Error, ErrorKind, FifoCompactOptions, IteratorMode, MultiThreaded,
@@ -391,7 +391,7 @@ struct OperationCounts {
     deletes: usize,
 }
 
-impl rocksdb::WriteBatchIterator for OperationCounts {
+impl speedb::WriteBatchIterator for OperationCounts {
     fn put(&mut self, _key: Box<[u8]>, _value: Box<[u8]>) {
         self.puts += 1;
     }
@@ -781,8 +781,8 @@ fn env_and_dbpaths_test() {
 
         {
             let paths = vec![
-                rocksdb::DBPath::new(&path1, 20 << 20).unwrap(),
-                rocksdb::DBPath::new(&path2, 30 << 20).unwrap(),
+                speedb::DBPath::new(&path1, 20 << 20).unwrap(),
+                speedb::DBPath::new(&path2, 30 << 20).unwrap(),
             ];
             opts.set_db_paths(&paths);
         }
@@ -1411,13 +1411,13 @@ fn test_atomic_flush_cfs() {
         let cf1 = db.cf_handle("cf1").unwrap();
         let cf2 = db.cf_handle("cf2").unwrap();
 
-        let mut write_options = rocksdb::WriteOptions::new();
+        let mut write_options = speedb::WriteOptions::new();
         write_options.disable_wal(true);
 
         db.put_cf_opt(&cf1, "k11", "v11", &write_options).unwrap();
         db.put_cf_opt(&cf2, "k21", "v21", &write_options).unwrap();
 
-        let mut opts = rocksdb::FlushOptions::new();
+        let mut opts = speedb::FlushOptions::new();
         opts.set_wait(true);
         db.flush_cfs_opt(&[&cf1, &cf2], &opts).unwrap();
     }

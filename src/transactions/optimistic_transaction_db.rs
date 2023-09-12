@@ -37,7 +37,7 @@ use crate::{
 /// # Examples
 ///
 /// ```
-/// use rocksdb::{DB, Options, OptimisticTransactionDB, SingleThreaded};
+/// use speedb::{DB, Options, OptimisticTransactionDB, SingleThreaded};
 /// let path = "_path_for_optimistic_transaction_db";
 /// {
 ///     let db: OptimisticTransactionDB = OptimisticTransactionDB::open_default(path).unwrap();

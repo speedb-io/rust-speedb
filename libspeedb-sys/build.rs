@@ -22,36 +22,36 @@ fn fail_on_empty_directory(name: &str) {
     }
 }
 
-fn rocksdb_include_dir() -> String {
-    match env::var("ROCKSDB_INCLUDE_DIR") {
+fn speedb_include_dir() -> String {
+    match env::var("SPEEDB_INCLUDE_DIR") {
         Ok(val) => val,
-        Err(_) => "rocksdb/include".to_string(),
+        Err(_) => "speedb/include".to_string(),
     }
 }
 
-fn bindgen_rocksdb() {
+fn bindgen_speedb() {
     let bindings = bindgen::Builder::default()
-        .header(rocksdb_include_dir() + "/rocksdb/c.h")
+        .header(speedb_include_dir() + "/rocksdb/c.h")
         .derive_debug(false)
         .blocklist_type("max_align_t") // https://github.com/rust-lang-nursery/rust-bindgen/issues/550
         .ctypes_prefix("libc")
         .size_t_is_usize(true)
         .generate()
-        .expect("unable to generate rocksdb bindings");
+        .expect("unable to generate speedb bindings");
 
     let out_path = PathBuf::from(env::var("OUT_DIR").unwrap());
     bindings
         .write_to_file(out_path.join("bindings.rs"))
-        .expect("unable to write rocksdb bindings");
+        .expect("unable to write speedb bindings");
 }
 
-fn build_rocksdb() {
+fn build_speedb() {
     let target = env::var("TARGET").unwrap();
 
     let mut config = cc::Build::new();
-    config.include("rocksdb/include/");
-    config.include("rocksdb/");
-    config.include("rocksdb/third-party/gtest-1.8.1/fused-src/");
+    config.include("speedb/include/");
+    config.include("speedb/");
+    config.include("speedb/third-party/gtest-1.8.1/fused-src/");
 
     if cfg!(feature = "snappy") {
         config.define("SNAPPY", Some("1"));
@@ -93,7 +93,7 @@ fn build_rocksdb() {
     config.include(".");
     config.define("NDEBUG", Some("1"));
 
-    let mut lib_sources = include_str!("rocksdb_lib_sources.txt")
+    let mut lib_sources = include_str!("speedb_lib_sources.txt")
         .trim()
         .split('\n')
         .map(str::trim)
@@ -176,7 +176,7 @@ fn build_rocksdb() {
             // Tell MinGW to create localtime_r wrapper of localtime_s function.
             config.define("_POSIX_C_SOURCE", Some("1"));
             // Tell MinGW to use at least Windows Vista headers instead of the ones of Windows XP.
-            // (This is minimum supported version of rocksdb)
+            // (This is minimum supported version of speedb)
             config.define("_WIN32_WINNT", Some("_WIN32_WINNT_VISTA"));
         }
 
@@ -234,7 +234,7 @@ fn build_rocksdb() {
         config.flag("-std:c++17");
     } else {
         config.flag(&cxx_standard());
-        // matches the flags in CMakeLists.txt from rocksdb
+        // matches the flags in CMakeLists.txt from speedb
         config.flag("-Wsign-compare");
         config.flag("-Wshadow");
         config.flag("-Wno-unused-parameter");
@@ -247,14 +247,14 @@ fn build_rocksdb() {
     }
 
     for file in lib_sources {
-        config.file(format!("rocksdb/{file}"));
+        config.file(format!("speedb/{file}"));
     }
 
     config.file("build_version.cc");
 
     config.cpp(true);
     config.flag_if_supported("-std=c++17");
-    config.compile("librocksdb.a");
+    config.compile("libspeedb.a");
 }
 
 fn build_snappy() {
@@ -340,15 +340,15 @@ fn update_submodules() {
 }
 
 fn main() {
-    if !Path::new("rocksdb/AUTHORS").exists() {
+    if !Path::new("speedb/AUTHORS").exists() {
         update_submodules();
     }
-    bindgen_rocksdb();
+    bindgen_speedb();
 
     if !try_to_find_and_link_lib("ROCKSDB") {
-        println!("cargo:rerun-if-changed=rocksdb/");
-        fail_on_empty_directory("rocksdb");
-        build_rocksdb();
+        println!("cargo:rerun-if-changed=speedb/");
+        fail_on_empty_directory("speedb");
+        build_speedb();
     } else {
         let target = env::var("TARGET").unwrap();
         // according to https://github.com/alexcrichton/cc-rs/blob/master/src/lib.rs#L2189
