@@ -1,4 +1,4 @@
-use rocksdb::{TransactionDB, SingleThreaded};
+use speedb::{TransactionDB, SingleThreaded};
 
 fn main() {
     let db = TransactionDB::<SingleThreaded>::open_default("foo").unwrap();

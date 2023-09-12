@@ -1,4 +1,4 @@
-use rocksdb::DB;
+use speedb::DB;
 
 fn main() {
     let _snapshot = {

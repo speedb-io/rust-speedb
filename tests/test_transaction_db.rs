@@ -17,7 +17,7 @@ mod util;
 
 use pretty_assertions::assert_eq;
 
-use rocksdb::{
+use speedb::{
     CuckooTableOptions, DBAccess, Direction, Error, ErrorKind, IteratorMode, Options, ReadOptions,
     SliceTransform, TransactionDB, TransactionDBOptions, TransactionOptions,
     WriteBatchWithTransaction, WriteOptions, DB,
