@@ -116,7 +116,7 @@ pub use crate::{
         CompactOptions, CuckooTableOptions, DBCompactionStyle, DBCompressionType, DBPath,
         DBRecoveryMode, DataBlockIndexType, FifoCompactOptions, FlushOptions,
         IngestExternalFileOptions, LogLevel, MemtableFactory, Options, PlainTableFactoryOptions,
-        ReadOptions, UniversalCompactOptions, UniversalCompactionStopStyle, WriteOptions,
+        ReadOptions, ReadTier, UniversalCompactOptions, UniversalCompactionStopStyle, WriteOptions,
     },
     db_pinnable_slice::DBPinnableSlice,
     env::Env,
