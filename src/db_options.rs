@@ -653,7 +653,7 @@ impl BlockBasedOptions {
     /// # Examples
     ///
     /// ```
-    /// use rocksdb::BlockBasedOptions;
+    /// use speedb::BlockBasedOptions;
     ///
     /// let mut opts = BlockBasedOptions::default();
     /// opts.set_bloom_filter(10.0, true);
@@ -1053,7 +1053,7 @@ impl Options {
     /// Examples
     ///
     /// ```
-    /// use rocksdb::{Options, DBCompressionType};
+    /// use speedb::{Options, DBCompressionType};
     ///
     /// let mut opts = Options::default();
     /// opts.set_compression_type(DBCompressionType::Zstd);

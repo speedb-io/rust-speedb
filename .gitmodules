@@ -5,4 +5,4 @@
 [submodule "speedb_sys/speedb"]
 	path = libspeedb-sys/speedb
 	url = https://github.com/speedb-io/speedb.git
-	branch = release/2.6
+	branch = release/2.7
