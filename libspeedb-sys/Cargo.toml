@@ -1,6 +1,6 @@
 [package]
 name = "libspeedb-sys"
-version = "0.0.4+2.7.0"
+version = "0.0.5+2.7.0"
 edition = "2018"
 rust-version = "1.63"
 authors = ["Karl Hobley <karlhobley10@gmail.com>", "Arkadiy Paronyan <arkadiy@ethcore.io>"]
