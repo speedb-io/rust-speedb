@@ -90,6 +90,11 @@ fn build_speedb() {
         config.define("USE_RTTI", Some("1"));
     }
 
+    #[cfg(feature = "malloc-usable-size")]
+    if target.contains("linux") {
+        config.define("ROCKSDB_MALLOC_USABLE_SIZE", Some("1"));
+    }
+
     config.include(".");
     config.define("NDEBUG", Some("1"));
 

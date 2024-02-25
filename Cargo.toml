@@ -33,6 +33,7 @@ bzip2 = ["libspeedb-sys/bzip2"]
 rtti = ["libspeedb-sys/rtti"]
 multi-threaded-cf = []
 serde1 = ["serde"]
+malloc-usable-size = ["libspeedb-sys/malloc-usable-size"]
 
 [dependencies]
 libc = "0.2"
